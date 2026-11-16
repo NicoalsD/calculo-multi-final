@@ -89,7 +89,7 @@ Detalle en [`docs/rubrica_evaluacion.md`](docs/rubrica_evaluacion.md).
 ├── analisis_manual/           ← guion del desarrollo a mano (derivadas, sistema, Hessiano)
 ├── codigo/                    ← regresion.py (método propio), verificacion.py, graficos.py
 ├── graficos/                  ← figuras generadas
-└── presentacion/              ← diapositivas de la defensa en Beamer (defensa.tex → defensa.pdf)
+└── presentacion/              ← defensa en Beamer: defensa.pdf (con animaciones) y defensa-handout.pdf
 ```
 
 ## Cómo ejecutar
@@ -102,8 +102,12 @@ python3 -m venv .venv && .venv/bin/pip install -r codigo/requirements.txt   # so
 .venv/bin/python docs/guia/build.py       # regenera todo y recompila el PDF
 ```
 
-Para recompilar las diapositivas de la defensa (requiere LaTeX con Beamer):
+Diapositivas de la defensa (requiere LaTeX con Beamer). `defensa.pdf` tiene animaciones por pasos para exponer; `defensa-handout.pdf` es la misma presentación sin animaciones, para imprimir o compartir:
 
 ```bash
 cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex
+```
+
+```bash
+cd presentacion && pdflatex defensa-handout.tex && pdflatex defensa-handout.tex
 ```
