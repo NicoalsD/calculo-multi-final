@@ -54,15 +54,15 @@
 \newenvironment{oscura}{\setbeamercolor{background canvas}{bg=tinta}\setbeamercolor{normal text}{fg=papel}\setbeamercolor{frametitle}{fg=papel}\setbeamercolor{framesubtitle}{fg=naranja}\setbeamercolor{block body}{fg=papel,bg=tinta!80!white}\setbeamercolor{block title}{fg=naranja,bg=tinta!80!white}\usebeamercolor[fg]{normal text}}{}
 \newenvironment{acento}{\setbeamercolor{background canvas}{bg=naranja}\setbeamercolor{normal text}{fg=tinta}\setbeamercolor{frametitle}{fg=tinta}\setbeamercolor{framesubtitle}{fg=tinta}\setbeamercolor{block body}{fg=tinta,bg=naranja!55!white}\setbeamercolor{block title}{fg=tinta,bg=naranja!55!white}\usebeamercolor[fg]{normal text}}{}
 
-% Botón que abre la gráfica 3D interactiva (presentacion/interactivo/*.html) en el navegador.
-% Funciona en Adobe Acrobat Reader y Okular; si el lector no abre enlaces, abrir el archivo a mano.
+% Animaciones 3D (\anim): cuadros de codigo/graficos_3d.py en animacion/. Se mueven en Adobe Acrobat
+% Reader (con los controles de abajo se pausan o se avanzan cuadro a cuadro); en otros lectores, primer cuadro.
+\newcommand{\anim}[4][width=\linewidth]{\animategraphics[#1,autoplay,loop,controls={play,step,stop}]{#2}{animacion/#3-}{0}{#4}}
 % \pasos[opciones]{nombre}{i}{j}: muestra graficos/pasos/nombre-i ... nombre-j, una por paso de la
 % diapositiva (todas del mismo tamaño, así no salta nada); la última se queda. En el handout, solo la última.
 \newcommand{\pasos}[4][]{%
   \foreach \i [evaluate=\i as \k using int(\i-#3+1)] in {#3,...,#4}{%
     \ifnum\i<#4\relax\includegraphics<\k|handout:0>[#1]{pasos/#2-\i}%
     \else\includegraphics<\k-|handout:1>[#1]{pasos/#2-\i}\fi}}
-\newcommand{\boton}[1]{\href{run:interactivo/#1}{\beamergotobutton{Girar en 3D (navegador)}}}
 \newcommand{\grande}[1]{{\fontsize{30}{32}\selectfont\bfseries\color{tinta}#1}}
 
 \title{La ley de Hubble como problema de optimización}
@@ -243,10 +243,8 @@
   \framesubtitle{Interpretación geométrica}
   \begin{columns}[c]
     \column{0.52\textwidth}
-      % Superficie girando (36 cuadros de codigo/graficos_3d.py). Se mueve en Adobe Acrobat Reader;
-      % en otros lectores se ve el primer cuadro fijo.
-      \animategraphics[width=\linewidth,autoplay,loop,controls=play]{9}{animacion/sup-}{0}{35}\\[0.2em]
-      \boton{superficie.html}
+      % Una vuelta completa y luego vista desde arriba, plano a–S y plano b–S
+      \anim{9}{sup}{111}
     \column{0.44\textwidth}
       \tarjeta[<2->]{Forma}{Paraboloide abierto hacia arriba, alargado como un valle.}
       \tarjeta[<3->]{Mínimo}{Un único punto más bajo en $(a^*, b^*) \approx (454.2,\,-40.8)$.}
@@ -259,8 +257,7 @@
   \framesubtitle{Interpretación geométrica}
   \centering
   % 46 cuadros de codigo/graficos_3d.py: camino de máximo descenso p' = -grad S desde (820, 20)
-  \animategraphics[width=0.84\textwidth,autoplay,loop,controls=play]{8}{animacion/rec-}{0}{45}\\[0.1em]
-  \boton{recorrido.html}
+  \anim[width=0.84\textwidth]{8}{rec}{45}
   \vfill
   \uncover<2->{\footnotesize Al bajar por $-\nabla S$ el punto cae primero al fondo del valle ($\lambda_2 = 97.6$, dirección empinada) y luego avanza despacio por él ($\lambda_1 = 9.4$) hasta $(a^*, b^*)$: la recta deja de girar y los residuos se equilibran.}
   \note{Izquierda: la recta y sus residuos. Derecha: el mismo (a, b) como punto sobre la superficie. Ver cómo S baja de 6.2 millones a 1.19 millones mientras la recta se acomoda en la nube. Es la misma información que el Hessiano: un valle alargado.}
@@ -268,8 +265,7 @@
 
 \begin{frame}{Trazas y secciones: parábolas que se desplazan}
   \framesubtitle{Interpretación geométrica}
-  \centering\pasos[height=0.44\textheight]{trazas}{1}{4}\\[0.1em]
-  \boton{trazas.html}
+  \centering\pasos[height=0.48\textheight]{trazas}{1}{4}
   \vfill
   \begin{columns}[T]
     \column{0.31\textwidth}\tarjeta[<2->]{Abren hacia arriba}{Todas con la misma abertura: el Hessiano constante visto en 1D.}
@@ -279,11 +275,23 @@
   \note{Fijar b deja una parábola en a con segunda derivada 2 suma x^2 = 59.04; fijar a deja una parábola en b con segunda derivada 2n = 48. La traza a = 0 es la recta horizontal y = ybarra = 373.1, el modelo con el que se compara R^2.}
 \end{frame}
 
+\begin{frame}{Trazas en 3D: un plano que corta la superficie}
+  \framesubtitle{Interpretación geométrica}
+  \begin{columns}[T]
+    \column{0.49\textwidth}\centering\anim[width=0.74\linewidth]{8}{trb}{39}\\
+      {\footnotesize Plano $b = b_0$ (naranja): el corte es $S(a, b_0)$, una parábola en $a$.}
+    \column{0.49\textwidth}\centering\anim[width=0.74\linewidth]{8}{tra}{39}\\
+      {\footnotesize Plano $a = a_0$ (azul): el corte es $S(a_0, b)$, una parábola en $b$.}
+  \end{columns}
+  \vfill
+  \uncover<2->{\footnotesize El punto negro es el vértice de cada corte: al mover el plano, el vértice recorre el fondo del valle y pasa por $(a^*, b^*)$ (rojo) cuando $b_0 = b^*$ o $a_0 = a^*$.}
+  \note{Es la versión en 3D de la diapositiva anterior: cada curva 2D es la intersección de la superficie con un plano vertical. El plano se mueve 300 unidades a cada lado del óptimo.}
+\end{frame}
+
 \begin{frame}{Curvas de nivel: elipses alrededor de $(a^*, b^*)$}
   \framesubtitle{Interpretación geométrica}
   \begin{columns}[c]
-    \column{0.46\textwidth}\centering\pasos[height=0.7\textheight]{curvas}{1}{5}\\[0.2em]
-      \boton{curvas_nivel.html}
+    \column{0.46\textwidth}\centering\pasos[height=0.74\textheight]{curvas}{1}{5}
     \column{0.25\textwidth}
       \tarjeta[<2->]{Concéntricas}{Cada elipse reúne rectas con el mismo error; el mínimo es el punto que todas encierran.}
       \tarjeta[<4->]{Alargadas}{Ejes en razón $\sqrt{\lambda_2/\lambda_1}\approx 3.2$: una dirección está peor determinada.}
@@ -292,6 +300,18 @@
       \tarjeta[<5->]{Gradiente}{Perpendicular a las curvas, hacia afuera, y nulo en el centro: $\nabla S = \mathbf{0}$.}
   \end{columns}
   \note{Es el mapa visto desde arriba. Los valores crecen hacia afuera: alejarse del centro en cualquier dirección aumenta el error. lambda1 = 9.43 y lambda2 = 97.61 son los valores propios del Hessiano.}
+\end{frame}
+
+\begin{frame}{De la superficie al mapa de curvas de nivel}
+  \framesubtitle{Interpretación geométrica}
+  \begin{columns}[c]
+    \column{0.58\textwidth}\anim{9}{niv}{63}
+    \column{0.38\textwidth}
+      \tarjeta{Corte horizontal}{Cada anillo es $S(a,b) = c$: la superficie cortada a la altura $c$.}
+      \tarjeta[<2->]{Proyección}{Bajados al piso, los anillos son las elipses del mapa.}
+      \tarjeta[<3->]{Desde arriba}{Anillos juntos = pendiente fuerte; separados = valle plano.}
+  \end{columns}
+  \note{La cámara sube de la vista 3D a la vista cenital: el mapa de curvas de nivel es la superficie vista desde arriba. Por eso las elipses están más juntas en la dirección empinada (lambda2) y más separadas a lo largo del valle (lambda1).}
 \end{frame}
 
 % =====================================================================
@@ -423,8 +443,7 @@
 
 \begin{frame}{Quitar una sola galaxia mueve la pendiente un 11\,\%}
   \framesubtitle{Análisis adicional · opción B}
-  \centering\pasos[height=0.4\textheight]{influencia}{1}{4}\\[0.1em]
-  \boton{influencia.html}
+  \centering\pasos[height=0.45\textheight]{influencia}{1}{4}
   \vfill
   \begin{columns}[T]
     \column{0.31\textwidth}\tarjeta[<2->]{NGC 4382}{Sin ella, $a$ pasa de 454 a 504 km/s/Mpc. Está en el extremo ($x = 2$ Mpc) y su velocidad es baja.}
@@ -432,6 +451,18 @@
     \column{0.31\textwidth}\tarjeta[<4->]{NGC 1068}{El mayor residuo, pero $\Delta a = -4.9$. Está cerca de $\bar x$: mueve $b$, no $a$.}
   \end{columns}
   \note{Se quita cada galaxia, se recalcula con las 23 restantes y se repite para las 24. La pendiente queda siempre entre 424 y 504: la conclusión cualitativa no depende de ningún dato, pero el valor exacto sí es sensible a unos pocos.}
+\end{frame}
+
+\begin{frame}{Sin NGC 4382 el fondo del valle se corre}
+  \framesubtitle{Análisis adicional · opción B}
+  \begin{columns}[c]
+    \column{0.58\textwidth}\anim{9}{inf}{35}
+    \column{0.38\textwidth}
+      \tarjeta{Dos valles}{Azul: $S$ con los 24 datos. Naranja: $S$ sin NGC 4382. Solo se dibuja el fondo ($S \le 3.5\times10^6$).}
+      \tarjeta[<2->]{El mínimo se mueve}{De $(454, -41)$ a $(504, -68)$: sube $a$ y baja $b$, a lo largo del valle.}
+      \tarjeta[<3->]{Por qué ahí}{Es la dirección peor determinada ($\lambda_1 = 9.4$): un solo dato basta para correr el mínimo por ella.}
+  \end{columns}
+  \note{Quitar un dato cambia la función S entera: el nuevo mínimo cae dentro del mismo valle alargado, en la dirección en que S casi no cambia.}
 \end{frame}
 
 % =====================================================================
