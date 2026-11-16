@@ -99,6 +99,7 @@ python3 -m venv .venv && .venv/bin/pip install -r codigo/requirements.txt   # so
 .venv/bin/python codigo/regresion.py      # método propio: a*, b*, S mínimo, Hessiano, RMSE, R²
 .venv/bin/python codigo/verificacion.py   # comparación con numpy/scipy e influencia de cada dato
 .venv/bin/python codigo/graficos.py       # regenera las figuras
+.venv/bin/python codigo/graficos_3d.py    # gráficas 3D interactivas (HTML) y cuadros de la animación
 .venv/bin/python docs/guia/build.py       # regenera todo y recompila el PDF
 ```
 
@@ -110,4 +111,12 @@ cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex
 
 ```bash
 cd presentacion && pdflatex defensa-handout.tex && pdflatex defensa-handout.tex
+```
+
+**Gráficas en 3D.** En `presentacion/interactivo/` están la superficie, las trazas (con planos que se mueven) y las curvas de nivel como páginas web: se giran con el mouse y funcionan sin internet. Se abren con doble clic o con el botón «Girar en 3D» de las diapositivas 10 a 12. En la diapositiva 10 la superficie gira sola, pero solo en **Adobe Acrobat Reader**; en Vista previa se ve el primer cuadro fijo.
+
+Compilar las diapositivas necesita los paquetes de LaTeX `animate`, `media9`, `zref` y `ocgx2`. Con BasicTeX se instalan sin permisos de administrador:
+
+```bash
+tlmgr init-usertree; tlmgr --usermode install animate media9 zref ocgx2
 ```
