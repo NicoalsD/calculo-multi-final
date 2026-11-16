@@ -89,7 +89,7 @@ Detalle en [`docs/rubrica_evaluacion.md`](docs/rubrica_evaluacion.md).
 ├── analisis_manual/           ← guion del desarrollo a mano (derivadas, sistema, Hessiano)
 ├── codigo/                    ← regresion.py (método propio), verificacion.py, graficos.py
 ├── graficos/                  ← figuras generadas
-└── presentacion/              ← diapositivas / material de la defensa (pendiente)
+└── presentacion/              ← diapositivas de la defensa en Beamer (defensa.tex → defensa.pdf)
 ```
 
 ## Cómo ejecutar
@@ -100,4 +100,10 @@ python3 -m venv .venv && .venv/bin/pip install -r codigo/requirements.txt   # so
 .venv/bin/python codigo/verificacion.py   # comparación con numpy/scipy e influencia de cada dato
 .venv/bin/python codigo/graficos.py       # regenera las figuras
 .venv/bin/python docs/guia/build.py       # regenera todo y recompila el PDF
+```
+
+Para recompilar las diapositivas de la defensa (requiere LaTeX con Beamer):
+
+```bash
+cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex
 ```

@@ -20,9 +20,10 @@ Proyecto final de Cálculo Multivariable (Universidad Cooperativa de Colombia, 2
 Ley de Hubble con los 24 datos de Hubble (1929): `x` = distancia (Mpc), `y` = velocidad radial (km/s). Resultados: a* ≈ 454.16, b* ≈ −40.78, S mín ≈ 1 193 442, R² ≈ 0.624. Análisis adicional: opción B (influencia de un dato).
 
 ## Estructura
-`datos/` dataset y fuente · `analisis_manual/` guion del desarrollo a mano · `codigo/` `regresion.py` (método propio), `verificacion.py`, `graficos.py` · `graficos/` figuras · `docs/guia/` fuente Typst del PDF · `presentacion/` defensa (pendiente).
+`datos/` dataset y fuente · `analisis_manual/` guion del desarrollo a mano · `codigo/` `regresion.py` (método propio), `verificacion.py`, `graficos.py` · `graficos/` figuras · `docs/guia/` fuente Typst del PDF · `presentacion/` diapositivas de la defensa en Beamer (`defensa.tex`).
 
 ## Comandos
 - Entorno: `.venv/bin/python` (dependencias en `codigo/requirements.txt`).
 - Regenerar resultados, figuras y PDF: `.venv/bin/python docs/guia/build.py`.
 - Los números del PDF salen de `docs/guia/resultados.json`; no escribirlos a mano en `guia.typ`.
+- Diapositivas: `cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex` (las cifras están escritas a mano en el `.tex`; si cambian los resultados, actualizarlas).
