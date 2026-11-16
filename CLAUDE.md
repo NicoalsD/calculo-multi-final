@@ -26,4 +26,4 @@ Ley de Hubble con los 24 datos de Hubble (1929): `x` = distancia (Mpc), `y` = ve
 - Entorno: `.venv/bin/python` (dependencias en `codigo/requirements.txt`).
 - Regenerar resultados, figuras y PDF: `.venv/bin/python docs/guia/build.py`.
 - Los números del PDF salen de `docs/guia/resultados.json`; no escribirlos a mano en `guia.typ`.
-- Diapositivas: `cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex` (las cifras están escritas a mano en el `.tex`; si cambian los resultados, actualizarlas).
+- Diapositivas: `cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex` (con animaciones por pasos); `defensa-handout.tex` genera la versión sin animaciones (las cifras están escritas a mano en el `.tex`; si cambian los resultados, actualizarlas).
