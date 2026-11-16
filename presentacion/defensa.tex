@@ -56,6 +56,12 @@
 
 % Botón que abre la gráfica 3D interactiva (presentacion/interactivo/*.html) en el navegador.
 % Funciona en Adobe Acrobat Reader y Okular; si el lector no abre enlaces, abrir el archivo a mano.
+% \pasos[opciones]{nombre}{i}{j}: muestra graficos/pasos/nombre-i ... nombre-j, una por paso de la
+% diapositiva (todas del mismo tamaño, así no salta nada); la última se queda. En el handout, solo la última.
+\newcommand{\pasos}[4][]{%
+  \foreach \i [evaluate=\i as \k using int(\i-#3+1)] in {#3,...,#4}{%
+    \ifnum\i<#4\relax\includegraphics<\k|handout:0>[#1]{pasos/#2-\i}%
+    \else\includegraphics<\k-|handout:1>[#1]{pasos/#2-\i}\fi}}
 \newcommand{\boton}[1]{\href{run:interactivo/#1}{\beamergotobutton{Girar en 3D (navegador)}}}
 \newcommand{\grande}[1]{{\fontsize{30}{32}\selectfont\bfseries\color{tinta}#1}}
 
@@ -130,7 +136,7 @@
 \begin{frame}{La nube sube y no se curva}
   \framesubtitle{Exploración de los datos}
   \begin{columns}[c]
-    \column{0.56\textwidth}\includegraphics[width=\linewidth]{01_dispersion.png}
+    \column{0.56\textwidth}\pasos[width=\linewidth]{dispersion}{1}{4}
     \column{0.40\textwidth}
       \tarjeta[<2->]{Tendencia}{A 2 Mpc las velocidades van de 500 a 1090 km/s; bajo 0.5 Mpc, de $-220$ a 290 km/s.}
       \tarjeta[<3->]{Forma}{Sin curvatura clara: $y = ax + b$ es razonable.}
@@ -141,16 +147,15 @@
 
 \begin{frame}{Cada recta saca una nota: su error $S(a,b)$}
   \framesubtitle{Construcción del modelo}
-  \begin{columns}[T]
-    \column{0.31\textwidth}\tarjeta{Predicción}{\[\hat y_i = a x_i + b\]}
-    \column{0.31\textwidth}\tarjeta[<2->]{Residuo}{\[e_i = y_i - (a x_i + b)\]}
-    \column{0.31\textwidth}\tarjeta[<3->]{Error cuadrático}{\[S(a,b) = \sum_{i=1}^{n} e_i^2\]}
+  \begin{columns}[c]
+    \column{0.53\textwidth}\pasos[width=\linewidth]{construccion}{1}{3}
+    \column{0.44\textwidth}
+      \tarjeta{Predicción}{$\hat y_i = a x_i + b$: el punto sobre la recta.}
+      \tarjeta[<2->]{Residuo}{$e_i = y_i - (a x_i + b)$: el segmento rojo.}
+      \tarjeta[<3->]{Error cuadrático}{$S(a,b) = \sum_{i=1}^{n} e_i^2$: el área de los cuadrados. Al cuadrado, los errores no se cancelan y $S$ es derivable.}
   \end{columns}
   \vfill
-  \uncover<4->{\textbf{\color{tinta}El cambio de papel:} los 24 pares $(x_i, y_i)$ son números fijos y las variables son $a$ y $b$. Cada punto del plano $(a,b)$ es una recta distinta, y buscamos la de menor error.}
-  \vspace{0.6em}
-
-  \uncover<3->{\small Se eleva al cuadrado para que los errores positivos y negativos no se cancelen y para que $S$ sea derivable.}
+  \uncover<4->{\small\textbf{\color{tinta}El cambio de papel:} los 24 pares $(x_i, y_i)$ son números fijos y las variables son $a$ y $b$. Cada punto del plano $(a,b)$ es una recta distinta, y buscamos la de menor error.}
   \note{Si sumáramos los residuos sin elevarlos, una recta pésima podría dar suma cero. Al desarrollar, S es un polinomio de grado 2 en a y b: su gráfica es un paraboloide.}
 \end{frame}
 
@@ -250,9 +255,20 @@
   \note{Cada punto del piso es una recta y la altura es su error. Lo que el Hessiano dijo con números, la superficie lo muestra: curvatura positiva en todas partes y un solo fondo.}
 \end{frame}
 
+\begin{frame}{Cada punto del valle es una recta}
+  \framesubtitle{Interpretación geométrica}
+  \centering
+  % 46 cuadros de codigo/graficos_3d.py: camino de máximo descenso p' = -grad S desde (820, 20)
+  \animategraphics[width=0.84\textwidth,autoplay,loop,controls=play]{8}{animacion/rec-}{0}{45}\\[0.1em]
+  \boton{recorrido.html}
+  \vfill
+  \uncover<2->{\footnotesize Al bajar por $-\nabla S$ el punto cae primero al fondo del valle ($\lambda_2 = 97.6$, dirección empinada) y luego avanza despacio por él ($\lambda_1 = 9.4$) hasta $(a^*, b^*)$: la recta deja de girar y los residuos se equilibran.}
+  \note{Izquierda: la recta y sus residuos. Derecha: el mismo (a, b) como punto sobre la superficie. Ver cómo S baja de 6.2 millones a 1.19 millones mientras la recta se acomoda en la nube. Es la misma información que el Hessiano: un valle alargado.}
+\end{frame}
+
 \begin{frame}{Trazas y secciones: parábolas que se desplazan}
   \framesubtitle{Interpretación geométrica}
-  \centering\includegraphics[height=0.44\textheight]{04_trazas.png}\\[0.1em]
+  \centering\pasos[height=0.44\textheight]{trazas}{1}{4}\\[0.1em]
   \boton{trazas.html}
   \vfill
   \begin{columns}[T]
@@ -266,7 +282,7 @@
 \begin{frame}{Curvas de nivel: elipses alrededor de $(a^*, b^*)$}
   \framesubtitle{Interpretación geométrica}
   \begin{columns}[c]
-    \column{0.46\textwidth}\includegraphics[width=\linewidth]{05_curvas_nivel.png}\\[0.2em]
+    \column{0.46\textwidth}\centering\pasos[height=0.7\textheight]{curvas}{1}{5}\\[0.2em]
       \boton{curvas_nivel.html}
     \column{0.25\textwidth}
       \tarjeta[<2->]{Concéntricas}{Cada elipse reúne rectas con el mismo error; el mínimo es el punto que todas encierran.}
@@ -333,8 +349,10 @@
       % Mismos datos y rectas que graficos/02_recta_ajuste.png, dibujados por pasos
       \begin{tikzpicture}[x=3.25cm,y=0.0034cm,font=\tiny]
         \fill[white] (-0.02,-310) rectangle (2.12,1210);
-        \foreach \v in {-200,0,...,1200} {\draw[cuerpo!12] (0,\v) -- (2.1,\v); \node[left] at (0,\v) {\v};}
-        \foreach \u in {0,0.5,1,1.5,2} {\draw[cuerpo!12] (\u,-300) -- (\u,1200); \node[below] at (\u,-300) {\u};}
+        \foreach \v in {-300,-250,...,1200} \draw[cuerpo!6] (0,\v) -- (2.1,\v);
+        \foreach \u in {0,0.1,...,2.1} \draw[cuerpo!6] (\u,-300) -- (\u,1200);
+        \foreach \v in {-200,0,...,1200} {\draw[cuerpo!22] (0,\v) -- (2.1,\v); \node[left] at (0,\v) {\v};}
+        \foreach \u in {0,0.5,1,1.5,2} {\draw[cuerpo!22] (\u,-300) -- (\u,1200); \node[below] at (\u,-300) {\u};}
         \draw[cuerpo!60] (0,-300) rectangle (2.1,1200);
         \node[below=9pt] at (1.05,-300) {Distancia $x$ (Mpc)};
         \node[rotate=90,above=14pt] at (0,450) {Velocidad $y$ (km/s)};
@@ -370,10 +388,8 @@
 
 \begin{frame}{Residuos $e_i = y_i - (a^* x_i + b^*)$}
   \framesubtitle{Análisis de los residuos}
-  \begin{columns}[c]
-    \column{0.48\textwidth}\includegraphics[width=\linewidth]{06_residuos.png}
-    \column{0.48\textwidth}\uncover<2->{\includegraphics[width=\linewidth]{07_histograma_residuos.png}}
-  \end{columns}
+  % Mismo eje vertical (km/s) en los residuos y en el histograma
+  \centering\pasos[width=0.92\textwidth]{residuos}{1}{2}
   \vfill
   \uncover<3->{\textbf{\color{tinta}En una frase:} centrados en cero y sin curva global, pero con una desviación sistemática en las galaxias más cercanas.}
   \note{A la izquierda, cada residuo contra su distancia; a la derecha, su distribución. En la siguiente diapositiva respondemos las preguntas del enunciado una por una.}
@@ -381,13 +397,13 @@
 
 \begin{frame}{Qué dicen los residuos}
   \framesubtitle{Análisis de los residuos}
+  \centering\pasos[width=0.68\textwidth]{residuos}{3}{6}
+  \vfill
   \begin{columns}[T]
-    \column{0.48\textwidth}
-      \tarjeta{¿Centrados en cero?}{Sí: 11 positivos, 13 negativos y media 0. No es suerte: $\partial S/\partial b = 0$ obliga a que $\sum e_i = 0$.}
-      \tarjeta[<3->]{¿Atípicos?}{NGC 1068 ($+507$), NGC 3031 ($-398$), NGC 4382 ($-368$): unas dos veces el RMSE. Grandes, pero no hay razón para descartarlos.}
-    \column{0.48\textwidth}
-      \tarjeta[<2->]{¿Tendencia o patrón?}{No hay U ni rampa global, lo que apoya el modelo lineal. Además $\sum x_i e_i = 0$ por $\partial S/\partial a = 0$.}
-      \tarjeta[<4->]{¿Desviación sistemática?}{Sí, cerca: entre 0.2 y 0.3 Mpc todos son negativos y en las Nubes de Magallanes positivos. Ahí domina el movimiento propio por la gravedad local.}
+    \column{0.24\textwidth}\tarjeta{¿Centrados?}{\scriptsize Sí: 11 positivos y 13 negativos, media 0. $\partial S/\partial b = 0$ obliga a $\sum e_i = 0$.}
+    \column{0.24\textwidth}\tarjeta[<2->]{¿Patrón?}{\scriptsize El promedio por tramos queda cerca de 0: ni U ni rampa. Además $\sum x_i e_i = 0$.}
+    \column{0.24\textwidth}\tarjeta[<3->]{¿Atípicos?}{\scriptsize Tres fuera de $\pm$RMSE, a unas dos veces el RMSE. Grandes, sin razón para descartarlos.}
+    \column{0.24\textwidth}\tarjeta[<4->]{¿Sistemática?}{\scriptsize Sí, cerca: de 0.2 a 0.3 Mpc todos negativos; las Nubes, positivos. Gravedad local.}
   \end{columns}
   \note{La dispersión es grande en todo el rango (entre -400 y +500 km/s) y no crece claramente con x. Andrómeda (NGC 224) de hecho se acerca a nosotros. Conclusión: compatible con un modelo lineal para la tendencia, con dos reservas.}
 \end{frame}
@@ -395,8 +411,10 @@
 \begin{frame}{RMSE y $R^2$, leídos con los datos de Hubble}
   \framesubtitle{Calidad del modelo}
   \begin{columns}[T]
-    \column{0.48\textwidth}\tarjeta{$\mathrm{RMSE} = \sqrt{S/n}$}{\grande{223 km/s}\\[0.4em]Error típico al predecir la velocidad de una galaxia por su distancia. Es grande frente a la velocidad media de 373 km/s.}
-    \column{0.48\textwidth}\tarjeta[<2->]{$R^2 = 1 - S\,/\sum (y_i - \bar y)^2$}{\grande{0.62}\\[0.4em]La distancia explica cerca del 62\,\% de la variación de las velocidades; el 38\,\% restante son movimientos propios y errores de distancia.}
+    \column{0.48\textwidth}\centering\includegraphics[height=0.33\textheight]{pasos/calidad-rmse}
+      \tarjeta{$\mathrm{RMSE} = \sqrt{S/n}$}{\footnotesize \textbf{223 km/s.} Error típico al predecir la velocidad de una galaxia por su distancia: la franja gris. Grande frente a la velocidad media de 373 km/s.}
+    \column{0.48\textwidth}\centering\uncover<2->{\includegraphics[height=0.33\textheight]{pasos/calidad-r2}}
+      \tarjeta[<2->]{$R^2 = 1 - S\,/\sum (y_i - \bar y)^2$}{\footnotesize \textbf{0.62} $= 1 - 1.19/3.17$: la recta quita el 62\,\% de la variación que deja la media; el 38\,\% restante son movimientos propios y errores de distancia.}
   \end{columns}
   \vfill
   \uncover<3->{\textbf{\color{tinta}Para el propósito de Hubble basta:} probar que la relación existe y estimar la pendiente. Para predecir una galaxia individual, no.}
@@ -405,7 +423,8 @@
 
 \begin{frame}{Quitar una sola galaxia mueve la pendiente un 11\,\%}
   \framesubtitle{Análisis adicional · opción B}
-  \centering\includegraphics[height=0.45\textheight]{08_influencia.png}
+  \centering\pasos[height=0.4\textheight]{influencia}{1}{4}\\[0.1em]
+  \boton{influencia.html}
   \vfill
   \begin{columns}[T]
     \column{0.31\textwidth}\tarjeta[<2->]{NGC 4382}{Sin ella, $a$ pasa de 454 a 504 km/s/Mpc. Está en el extremo ($x = 2$ Mpc) y su velocidad es baja.}

@@ -113,7 +113,9 @@ cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex
 cd presentacion && pdflatex defensa-handout.tex && pdflatex defensa-handout.tex
 ```
 
-**Gráficas en 3D.** En `presentacion/interactivo/` están la superficie, las trazas (con planos que se mueven) y las curvas de nivel como páginas web: se giran con el mouse y funcionan sin internet. Se abren con doble clic o con el botón «Girar en 3D» de las diapositivas 10 a 12. En la diapositiva 10 la superficie gira sola, pero solo en **Adobe Acrobat Reader**; en Vista previa se ve el primer cuadro fijo.
+**Gráficas en 3D.** En `presentacion/interactivo/` están la superficie (con el plano tangente en el mínimo), las trazas (con planos que se mueven), las curvas de nivel, el recorrido de una recta bajando por el valle hasta el mínimo y la influencia de NGC 4382 (los dos valles, con y sin ella), como páginas web: se giran con el mouse y funcionan sin internet. Se abren con doble clic o con el botón «Girar en 3D» de las diapositivas. En las diapositivas 10 y 11 la superficie y el recorrido se animan solos, pero solo en **Adobe Acrobat Reader**; en Vista previa se ve el primer cuadro fijo.
+
+**Gráficas por pasos.** `codigo/graficos.py` dibuja cada figura por capas: `graficos/NN_*.png` es la versión de la guía y `graficos/pasos/*-k.png` las capas que la presentación va mostrando una por una. Todas usan la misma cuadrícula (mayor y menor) por magnitud: $x$ cada 0.5/0.1 Mpc, velocidades y residuos cada 200/50 km/s, $a$ y $b$ cada 100/25, $S$ cada $10^6$.
 
 Compilar las diapositivas necesita los paquetes de LaTeX `animate`, `media9`, `zref` y `ocgx2`. Con BasicTeX se instalan sin permisos de administrador:
 
