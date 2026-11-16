@@ -10,6 +10,7 @@
 \usepackage{booktabs,array,tabularx}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage{animate}
 \graphicspath{{../graficos/}}
 % \usepackage{pgfpages}\setbeameroption{show notes on second screen=right}
 
@@ -53,6 +54,9 @@
 \newenvironment{oscura}{\setbeamercolor{background canvas}{bg=tinta}\setbeamercolor{normal text}{fg=papel}\setbeamercolor{frametitle}{fg=papel}\setbeamercolor{framesubtitle}{fg=naranja}\setbeamercolor{block body}{fg=papel,bg=tinta!80!white}\setbeamercolor{block title}{fg=naranja,bg=tinta!80!white}\usebeamercolor[fg]{normal text}}{}
 \newenvironment{acento}{\setbeamercolor{background canvas}{bg=naranja}\setbeamercolor{normal text}{fg=tinta}\setbeamercolor{frametitle}{fg=tinta}\setbeamercolor{framesubtitle}{fg=tinta}\setbeamercolor{block body}{fg=tinta,bg=naranja!55!white}\setbeamercolor{block title}{fg=tinta,bg=naranja!55!white}\usebeamercolor[fg]{normal text}}{}
 
+% Botón que abre la gráfica 3D interactiva (presentacion/interactivo/*.html) en el navegador.
+% Funciona en Adobe Acrobat Reader y Okular; si el lector no abre enlaces, abrir el archivo a mano.
+\newcommand{\boton}[1]{\href{run:interactivo/#1}{\beamergotobutton{Girar en 3D (navegador)}}}
 \newcommand{\grande}[1]{{\fontsize{30}{32}\selectfont\bfseries\color{tinta}#1}}
 
 \title{La ley de Hubble como problema de optimización}
@@ -233,7 +237,11 @@
 \begin{frame}{La superficie de error es un valle con un solo fondo}
   \framesubtitle{Interpretación geométrica}
   \begin{columns}[c]
-    \column{0.52\textwidth}\includegraphics[width=\linewidth]{03_superficie.png}
+    \column{0.52\textwidth}
+      % Superficie girando (36 cuadros de codigo/graficos_3d.py). Se mueve en Adobe Acrobat Reader;
+      % en otros lectores se ve el primer cuadro fijo.
+      \animategraphics[width=\linewidth,autoplay,loop,controls=play]{9}{animacion/sup-}{0}{35}\\[0.2em]
+      \boton{superficie.html}
     \column{0.44\textwidth}
       \tarjeta[<2->]{Forma}{Paraboloide abierto hacia arriba, alargado como un valle.}
       \tarjeta[<3->]{Mínimo}{Un único punto más bajo en $(a^*, b^*) \approx (454.2,\,-40.8)$.}
@@ -244,7 +252,8 @@
 
 \begin{frame}{Trazas y secciones: parábolas que se desplazan}
   \framesubtitle{Interpretación geométrica}
-  \centering\includegraphics[height=0.47\textheight]{04_trazas.png}
+  \centering\includegraphics[height=0.44\textheight]{04_trazas.png}\\[0.1em]
+  \boton{trazas.html}
   \vfill
   \begin{columns}[T]
     \column{0.31\textwidth}\tarjeta[<2->]{Abren hacia arriba}{Todas con la misma abertura: el Hessiano constante visto en 1D.}
@@ -257,7 +266,8 @@
 \begin{frame}{Curvas de nivel: elipses alrededor de $(a^*, b^*)$}
   \framesubtitle{Interpretación geométrica}
   \begin{columns}[c]
-    \column{0.46\textwidth}\includegraphics[width=\linewidth]{05_curvas_nivel.png}
+    \column{0.46\textwidth}\includegraphics[width=\linewidth]{05_curvas_nivel.png}\\[0.2em]
+      \boton{curvas_nivel.html}
     \column{0.25\textwidth}
       \tarjeta[<2->]{Concéntricas}{Cada elipse reúne rectas con el mismo error; el mínimo es el punto que todas encierran.}
       \tarjeta[<4->]{Alargadas}{Ejes en razón $\sqrt{\lambda_2/\lambda_1}\approx 3.2$: una dirección está peor determinada.}
