@@ -99,7 +99,7 @@ python3 -m venv .venv && .venv/bin/pip install -r codigo/requirements.txt   # so
 .venv/bin/python codigo/regresion.py      # método propio: a*, b*, S mínimo, Hessiano, RMSE, R²
 .venv/bin/python codigo/verificacion.py   # comparación con numpy/scipy e influencia de cada dato
 .venv/bin/python codigo/graficos.py       # regenera las figuras
-.venv/bin/python codigo/graficos_3d.py    # gráficas 3D interactivas (HTML) y cuadros de la animación
+.venv/bin/python codigo/graficos_3d.py    # cuadros de las animaciones 3D de la defensa
 .venv/bin/python docs/guia/build.py       # regenera todo y recompila el PDF
 ```
 
@@ -113,7 +113,7 @@ cd presentacion && pdflatex defensa.tex && pdflatex defensa.tex
 cd presentacion && pdflatex defensa-handout.tex && pdflatex defensa-handout.tex
 ```
 
-**Gráficas en 3D.** En `presentacion/interactivo/` están la superficie (con el plano tangente en el mínimo), las trazas (con planos que se mueven), las curvas de nivel, el recorrido de una recta bajando por el valle hasta el mínimo y la influencia de NGC 4382 (los dos valles, con y sin ella), como páginas web: se giran con el mouse y funcionan sin internet. Se abren con doble clic o con el botón «Girar en 3D» de las diapositivas. En las diapositivas 10 y 11 la superficie y el recorrido se animan solos, pero solo en **Adobe Acrobat Reader**; en Vista previa se ve el primer cuadro fijo.
+**Gráficas en 3D.** Todo se ve dentro del PDF de la defensa, sin páginas web: la superficie da una vuelta y pasa por la vista desde arriba y los planos a–S y b–S; una recta baja por el valle hasta el mínimo; dos planos barren la superficie y cortan las trazas; la cámara sube hasta ver las curvas de nivel; y los valles con y sin NGC 4382 giran juntos. Las animaciones (paquete `animate`, cuadros de `codigo/graficos_3d.py` en `presentacion/animacion/`) se mueven solo en **Adobe Acrobat Reader**, con controles para pausar o avanzar cuadro a cuadro; en Vista previa se ve el primer cuadro fijo.
 
 **Gráficas por pasos.** `codigo/graficos.py` dibuja cada figura por capas: `graficos/NN_*.png` es la versión de la guía y `graficos/pasos/*-k.png` las capas que la presentación va mostrando una por una. Todas usan la misma cuadrícula (mayor y menor) por magnitud: $x$ cada 0.5/0.1 Mpc, velocidades y residuos cada 200/50 km/s, $a$ y $b$ cada 100/25, $S$ cada $10^6$.
 
