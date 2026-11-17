@@ -386,7 +386,7 @@ Además, el gradiente evaluado en $(a^*, b^*)$ da (#sci(r.grad.at(0)), #sci(r.gr
 == Recta de ajuste
 #fig("/graficos/02_recta_ajuste.png", [Datos, recta óptima (roja) y tres rectas con otros valores de $(a, b)$, con su error $S$.], ancho: 72%)
 - *Tendencia general.* La recta $y = #f(r.a, d: 1) x - #f(calc.abs(r.b), d: 1)$ atraviesa la nube por el centro y recoge bien la tendencia creciente. No describe cada galaxia: hay puntos a varios cientos de km/s de la recta.
-- *Comparación con otras rectas.* Las tres rectas punteadas tienen errores entre 1.5 y 2.3 veces mayores que la óptima. Una pendiente mayor o menor, o la misma pendiente desplazada hacia arriba, siempre empeoran $S$. Cada una de estas rectas es un punto del plano $(a, b)$ que queda en una curva de nivel más externa.
+- *Comparación con otras rectas.* Las tres rectas punteadas tienen errores entre 1.5 y 2.2 veces mayores que la óptima. Una pendiente mayor o menor, o la misma pendiente desplazada hacia arriba, siempre empeoran $S$. Cada una de estas rectas es un punto del plano $(a, b)$ que queda en una curva de nivel más externa.
 - *Puntos con mayor desviación.* #r.mayores_residuos.slice(0, 3).map(p => [#p.objeto ($x = #f(p.x, d: 1)$, residuo #f(p.e, d: 0) km/s)]).join(", ", last: " y ").
 - *Puntos que pueden influir.* Las cuatro galaxias a 2 Mpc y las dos Nubes de Magallanes (casi a distancia cero) están en los extremos del eje $x$, así que tienen mucha palanca sobre la pendiente. Se estudia en la @influencia.
 
